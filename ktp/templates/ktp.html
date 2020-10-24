@@ -87,7 +87,7 @@
       <td>{{lesson.theme}}</td>
              <td>
                  {% if lesson.home_task %}
-                     {{lesson.home_task}}
+                     {{lesson.home_task | safe}}
                  {% endif %}
              </td>
              </tr>
