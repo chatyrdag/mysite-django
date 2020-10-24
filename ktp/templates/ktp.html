@@ -86,7 +86,7 @@
              {{lesson.fact_date}}
           {% endif %}
       </td>
-      <td>{{lesson.theme}}</td>
+      <td>{{lesson.theme | safe}}</td>
              <td>
                  {% if lesson.home_task %}
                      {{lesson.home_task | safe}}
