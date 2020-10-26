@@ -1,1 +1,2 @@
-mysite/settings.py
+/mysite/settings.py
+/mysite/__pycache__/*
