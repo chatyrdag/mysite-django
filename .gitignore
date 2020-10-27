@@ -1,2 +1,3 @@
-/mysite/settings.py
-/mysite/__pycache__/*
+mysite/settings.py
+ktp/__pycache__/*
+mysite/__pycache__/*
