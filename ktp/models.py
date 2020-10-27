@@ -26,7 +26,8 @@ class Teacher(models.Model):
         verbose_name_plural = 'Учителя'
 
     def __str__(self):
-        return self.surname + ' ' + self.first_name + ' ' + self.second_name
+       """ return self.surname + ' ' + self.first_name + ' ' + self.second_name """
+       return f"{self.surname} {self.first_name} {self.second_name}"
 
 
 class SchoolForm(models.Model):
@@ -71,8 +72,9 @@ class KTP(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     class Meta:
-        verbose_name = 'КТП'
-        verbose_name_plural = 'КТП'
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+        ordering = ("number_of_lesson",)
 
     def __str__(self):
         return self.theme
