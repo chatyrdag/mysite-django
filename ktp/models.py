@@ -26,8 +26,8 @@ class Teacher(models.Model):
         verbose_name_plural = 'Учителя'
 
     def __str__(self):
-       """ return self.surname + ' ' + self.first_name + ' ' + self.second_name """
-       return f"{self.surname} {self.first_name} {self.second_name}"
+        """ return self.surname + ' ' + self.first_name + ' ' + self.second_name """
+        return f"{self.surname} {self.first_name} {self.second_name}"
 
 
 class SchoolForm(models.Model):
@@ -65,9 +65,11 @@ class KTP(models.Model):
                                         verbose_name='Дисциплина')
     number_of_lesson = models.SmallIntegerField(verbose_name='Номер урока')
     plan_date = models.DateField(blank=True, verbose_name='Планируемая дата')
-    fact_date = models.DateField(null=True, blank=True, verbose_name='Дата проведения')
+    fact_date = models.DateField(
+        null=True, blank=True, verbose_name='Дата проведения')
     theme = models.TextField(verbose_name='Тема урока')
-    home_task = models.CharField('Домашнее задание', max_length=255, null=True, blank=True)
+    home_task = models.CharField(
+        'Домашнее задание', max_length=255, null=True, blank=True)
     created_at = models.DateField(auto_now=True)
     updated_at = models.DateField(auto_now=True)
 

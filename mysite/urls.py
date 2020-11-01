@@ -20,6 +20,7 @@ from . import views
 
 urlpatterns = [
     path('ktp/', include('ktp.urls')),
+    path('mathapi/', include('mathapi.urls')),
     path('rp/', views.rp),
     path('admin/', admin.site.urls),
     path('', views.main),
