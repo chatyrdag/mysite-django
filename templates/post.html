@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col single-post">
+				<h5 class="post-category"><a href="/{{category.slug}}/">{{category.category_name}}</a></h3>
+				<h3>{{post.title}}</h3>
+				<div class="post-add">
+					<h6 class="post-date">Дата создания: {{post.created_at}}</h6>
+					<h6 class="post-tags">Тэги: 
+						{% for tag in tags %}
+							<span class="span-tags"><a href="/tag/{{tag.slug}}/">{{tag.tag_name}}</a></span>
+						{% endfor %}
+				</h6>
+				</div>
+				<p class="post-description">{{post.short_description | safe}}</p>
+				<div class="post-fulltext">{{post.full_text | safe}}</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

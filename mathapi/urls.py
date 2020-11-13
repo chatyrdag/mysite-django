@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('multtab/', views.multtab),
-    path('lineareq/<int:level>/', views.lineareq)
+    path('lineareq/<int:level>/', views.lineareq),
+    path('squareroot/<int:level>/', views.squareroot),
 ]

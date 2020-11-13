@@ -2,3 +2,6 @@ mysite/settings.py
 ktp/__pycache__/*
 mysite/__pycache__/*
 mathapi/__pycache__/*
+mathapi/migrations/__pycache__/*
+mathapi/functions/__pycache__/*
+ktp/migrations/__pycache__/*

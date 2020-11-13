@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import KTP, SchoolForm, Discipline
 
 
@@ -12,7 +11,8 @@ def ktp(request, form, discipline):
     form_id = query_school_form[0].id
     query_discipline = Discipline.objects.filter(id=discipline)
     discipline_name = query_discipline[0].discipline_name
-    qs = KTP.objects.filter(school_form=form_id, discipline_name=discipline).order_by('number_of_lesson')
+    qs = KTP.objects.filter(
+        school_form=form_id, discipline_name=discipline).order_by('number_of_lesson')
     return render(request, 'ktp.html', {
         'lessons_list': qs,
         'discipline_name': discipline_name,
