@@ -45,7 +45,7 @@
 							      </a>
 							    {% endif %}
 						    </h3>
-							<p class="post-description">{{task.task_text}}</p>
+							<div class="post-fulltext">{{task.task_text | safe}}</div>
 							{% if task.file_with_solition %}
  								<p><a href="/gia/show/{{task.slug}}/">Показать решение...</a></p>
 							{% endif %}
