@@ -1,0 +1,115 @@
+{% extends "index.html" %}
+
+{% block title %}{{task.title}}{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="col single-post">
+                <h3 class="post-title">
+                    {% if exam == 'oge' %}
+                        ОГЭ
+                    {% elif exam == 'ege' %}
+                        ЕГЭ
+                    {% endif %}      
+                </h3>
+        </div>
+		<div class="row">
+			<div class="col">
+				<ul class="nav nav-tabs">
+						{% for n in task_range %}
+				    	    <li class="nav-item">
+				        	 	<a href="/gia/{{exam}}/{{n}}/" class="nav-link
+                            	    {% if task.task_number == n %}
+				           				active
+				           			{% endif %}
+				         		">{{n}}</a>
+					    	</li>
+						{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col single-post">
+				<h3 class="post-title">{{task.title}}</h3>
+				<p class="post-description">{{task.task_text | safe}}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col d-flex justify-content-center" >
+				<div id="alexmath-pdf-viewer">
+        			<div id="navigation-icons">
+        				<button id="go-next" class="pdf-nav-button"><i 
+        					class="far fa-caret-square-right pdf-nav-button-icon" 
+        				></i></button>
+        				<button id="go-previous" class="pdf-nav-button"><i 
+        					class="far fa-caret-square-left pdf-nav-button-icon"
+        				></i></button>
+        				<span class="pdf-nav-text">Страница <span id="current-page-number">1</span> 
+        					из <span id="total-pages"></span></span>
+     				</div>
+        			<div id="canvas_container" >
+        				<canvas id="pdf_renderer"></canvas>
+     				</div>
+  				</div>
+
+  				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+  				<script>
+      				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
+      				let myState = {
+          				pdf: null,
+          				currentPage: 1,
+          				zoom: 1.2
+      				}
+      
+      				pdfjsLib.getDocument('/static/pdf/{{exam}}/{{task.file_with_solition}}.pdf').promise.then((pdf) => {
+          				myState.pdf = pdf;
+
+          				render();
+      				});
+              
+          
+      
+      				function render() {
+          				myState.pdf.getPage(myState.currentPage).then((page) => {
+              				let canvas = document.getElementById('pdf_renderer');
+              				let ctx = canvas.getContext('2d');
+              				let viewport = page.getViewport({scale: myState.zoom});
+              
+              				canvas.width = viewport.width;
+              				canvas.height = viewport.height;
+
+              				document.querySelector('#current-page-number').innerHTML = myState.currentPage;
+              				document.querySelector('#total-pages').innerHTML = myState.pdf._pdfInfo.numPages;
+              
+              				page.render({
+                  				canvasContext: ctx,
+                  				viewport: viewport
+              				});
+          				});
+      				}
+
+    				document.getElementById('go-next')
+       					.addEventListener('click', (e) => {
+           					if(myState.pdf == null 
+		          				|| myState.currentPage >= myState.pdf._pdfInfo.numPages)
+              				return;
+        
+           					myState.currentPage += 1;
+           					render();
+       				});
+
+   
+					document.getElementById('go-previous')
+            			.addEventListener('click', (e) => {
+            				if(myState.pdf == null
+               					|| myState.currentPage == 1) return;
+            
+            				myState.currentPage -= 1;
+            				render();
+        			});
+
+  				</script>
+			</div>
+		</div>
+	</div>
+{% endblock %}

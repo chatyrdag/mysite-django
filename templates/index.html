@@ -13,6 +13,7 @@
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
+    <script src="https://kit.fontawesome.com/01c568b262.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
     <title>{% block title %}Домашняя страница{% endblock %}</title>
@@ -34,8 +35,15 @@
           
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="/">Домой</span></a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active"
+                     data-toggle="dropdown" href="#"
+                     role="button" aria-haspopup="true"
+                     aria-expanded="false">ГИА</a>
+                  <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/gia/ege/">Математика. ЕГЭ</a>
+                      <a class="dropdown-item" href="/gia/oge/">Математика. ОГЭ</a>
+                  </div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/administrirovaniye/">Администрирование</a>
@@ -46,14 +54,14 @@
                      role="button" aria-haspopup="true"
                      aria-expanded="false">Мои классы</a>
                   <div class="dropdown-menu">
-                      <a class="dropdown-item" href="/ktp/8/1">Алгебра 8 класс</a>
-                      <a class="dropdown-item" href="/ktp/8/2">Геометрия 8 класс</a>
-                      <a class="dropdown-item" href="/ktp/9/1">Алгебра 9 класс</a>
-                      <a class="dropdown-item" href="/ktp/9/2">Геометрия 9 класс</a>
-                      <a class="dropdown-item" href="/ktp/10/4">Алгебра 10 класс</a>
-                      <a class="dropdown-item" href="/ktp/10/5">Геометрия 10 класс</a>
-                      <a class="dropdown-item" href="/ktp/11/3">Алгебра 11 класс</a>
-                      <a class="dropdown-item" href="/ktp/11/2">Геометрия 11 класс</a>
+                      <a class="dropdown-item" href="/ktp/8/1/">Алгебра 8 класс</a>
+                      <a class="dropdown-item" href="/ktp/8/2/">Геометрия 8 класс</a>
+                      <a class="dropdown-item" href="/ktp/9/1/">Алгебра 9 класс</a>
+                      <a class="dropdown-item" href="/ktp/9/2/">Геометрия 9 класс</a>
+                      <a class="dropdown-item" href="/ktp/10/4/">Алгебра 10 класс</a>
+                      <a class="dropdown-item" href="/ktp/10/5/">Геометрия 10 класс</a>
+                      <a class="dropdown-item" href="/ktp/11/3/">Алгебра 11 класс</a>
+                      <a class="dropdown-item" href="/ktp/11/2/">Геометрия 11 класс</a>
                   </div>
                 </li>
                 <li class="nav-item">
