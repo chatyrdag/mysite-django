@@ -6,7 +6,7 @@ def category(request, category):
     category_query = Category.objects.filter(slug=category)
     category_id = category_query[0].id
     category = category_query[0]
-    posts = Post.objects.filter(category_post=category_id)
+    posts = Post.objects.filter(category_post=category_id).order_by('id')
     return render(request, 'category.html', {
         'posts': posts,
         'category': category
