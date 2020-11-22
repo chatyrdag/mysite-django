@@ -19,7 +19,7 @@
     					<div class="post-add">
     						<h6 class="post-date">Дата создания: {{post.created_at}}</h6>
     					</div>
-    					<p class="post-description">{{post.short_description}}</p>
+    					<p class="post-description">{{post.short_description | safe}}</p>
     					<p><a href="{{post.slug}}/">Подробнее...</a></p>
     					<hr />
     				{% endfor %}
