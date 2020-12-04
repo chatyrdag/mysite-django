@@ -1,30 +1,45 @@
 {% extends "index.html" %}
 
-{% block title %}{{category.category_name}}{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.category_name}}
+    {% else %}
+        Ошибка!
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <div class="container">
-        <div class="row">
-    		<div class="col category-post">
-    			<h4>{{category.category_name}}</h4>
-    			<p>{{category.category_description}}</p>
-    		</div>
-    	</div>
-    	<div class="row">
-    		<div class="col">
-    			<div class="short-post">
-    				{% for post in posts %}
-    					<h5 class="post-category">{{category.category_name}}</h5>
-    					<h3 class="post-title"><a href="{{post.slug}}/">{{post.title | safe}}</a></h3>
-    					<div class="post-add">
-    						<h6 class="post-date">Дата создания: {{post.created_at}}</h6>
-    					</div>
-    					<div class="post-description">{{post.short_description | safe}}</div>
-    					<p><a href="{{post.slug}}/">Подробнее...</a></p>
-    					<hr />
-    				{% endfor %}
-    			</div>
-    		</div>
-    	</div>
+        {% if category %}
+            <div class="row">
+    		    <div class="col category-post">
+    			    <h4>{{category.category_name}}</h4>
+    			    <p>{{category.category_description}}</p>
+    		  </div>
+    	    </div>
+    	    <div class="row">
+    		    <div class="col">
+    			    <div class="short-post">
+    				    {% for post in posts %}
+    					    <h5 class="post-category">{{category.category_name}}</h5>
+    					    <h3 class="post-title"><a href="{{post.slug}}/">{{post.title | safe}}</a></h3>
+    					    <div class="post-add">
+    				  		    <h6 class="post-date">Дата создания: {{post.created_at}}</h6>
+    					    </div>
+    					    <div class="post-description">{{post.short_description | safe}}</div>
+    					    <p><a href="{{post.slug}}/">Подробнее...</a></p>
+    					    <hr />
+    				    {% endfor %}
+    			    </div>
+    		    </div>
+    	    </div>
+        {% else %}
+            <div class="row">
+                <div class="col category-post">
+                    <h4>Ошибка!</h4>
+                    <p>Такой страницы не существует!</p>
+                </div>
+            </div>
+        {% endif %}
 	</div>
 {% endblock %}

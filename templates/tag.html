@@ -1,27 +1,42 @@
 {% extends "index.html" %}
 
-{% block title %}{{tag_name}}{% endblock %}
+{% block title %}
+    {% if tag_name %}
+        {{tag_name}}
+    {% else %}
+        Ошибка
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 	<div class="container">
-		<div class="row">
-			<div class="col tag-post">
-				<h4>Материалы с тегом <em>{{tag_name}}</em></h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				{% for post in posts %}
-					<h5 class="post-category"><a href="/{{post.category_post.slug}}/">{{post.category_post.category_name}}</a></h5>
-    				<h3 class="post-title"><a href="/{{post.category_post.slug}}/{{post.slug}}/">{{post.title | safe}}</a></h3>
-    				<div class="post-add">
-    					<h6 class="post-date">Дата создания: {{post.created_at}}</h6>
-    				</div>
-    				<p class="post-description">{{post.short_description}}</p>
-    				<p><a href="/{{post.category_post.slug}}/{{post.slug}}/">Подробнее...</a></p>
-    				<hr />
-				{% endfor %}
-			</div>
-		</div>
+		{% if tag_name and posts %}
+		    <div class="row">
+			    <div class="col tag-post">
+				    <h4>Материалы с тегом <em>{{tag_name}}</em></h4>
+			    </div>
+		    </div>
+		    <div class="row">
+			    <div class="col">
+				    {% for post in posts %}
+					    <h5 class="post-category"><a href="/{{post.category_post.slug}}/">{{post.category_post.category_name}}</a></h5>
+    				    <h3 class="post-title"><a href="/{{post.category_post.slug}}/{{post.slug}}/">{{post.title | safe}}</a></h3>
+    				    <div class="post-add">
+    					    <h6 class="post-date">Дата создания: {{post.created_at}}</h6>
+    				    </div>
+    				    <p class="post-description">{{post.short_description}}</p>
+    				    <p><a href="/{{post.category_post.slug}}/{{post.slug}}/">Подробнее...</a></p>
+    				    <hr />
+				    {% endfor %}
+			    </div>
+		    </div>
+        {% else %}
+        	<div class="row">
+                <div class="col category-post">
+                    <h4>Ошибка!</h4>
+                    <p>Такой страницы не существует!</p>
+                </div>
+            </div>
+        {% endif %}
 	</div>
 {% endblock %}
