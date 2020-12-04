@@ -5,3 +5,4 @@ mathapi/__pycache__/*
 mathapi/migrations/__pycache__/*
 mathapi/functions/__pycache__/*
 ktp/migrations/__pycache__/*
+posts/__pycache__/*
