@@ -2,6 +2,49 @@ from django.db import models
 from .utils import from_cyrillic_to_eng
 
 
+class Exam(models.Model):
+    name = models.CharField(max_length=80, null=False,
+                            verbose_name='Экзамен')
+    slug = models.CharField(max_length=100, blank=True, unique=True)
+    description = models.TextField(null=True, blank=True, verbose_name='Описание')
+    comments = models.TextField(null=True, blank=True, verbose_name='Комментарий')
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Экзамен'
+        verbose_name_plural = 'Экзамены'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = from_cyrillic_to_eng(str(self.name))
+        super().save(*args, **kwargs)
+
+
+class TaskType(models.Model):
+    task_number = models.SmallIntegerField(verbose_name='Номер задания', null=False)
+    slug = models.CharField(max_length=40, null=False, blank=True, unique=True)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE,
+                             verbose_name='Тип экзамена')
+    description = models.TextField(verbose_name='Описание задания', null=True, blank=True)
+    comments = models.TextField(verbose_name='Комментарии', null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Тип задания'
+        verbose_name_plural = 'Типы задания'
+
+    def __str__(self):
+        return str(self.exam) + ' ' + str(self.task_number)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = from_cyrillic_to_eng(str(self.exam) + str(self.task_number))
+        super().save(*args, **kwargs)
+
+
 class GiaTask(models.Model):
 
     class ExamType(models.IntegerChoices):
@@ -14,6 +57,8 @@ class GiaTask(models.Model):
     task_text = models.TextField(null=False, verbose_name='Текст задания')
     exam = models.IntegerField(
         choices=ExamType.choices, default=ExamType.EGE, verbose_name='Тип экзамена')
+    #task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE,
+    #                              verbose_name='Тип задания')
     task_number = models.SmallIntegerField(
         verbose_name='Номер задания', null=False)
     file_with_solition = models.CharField(

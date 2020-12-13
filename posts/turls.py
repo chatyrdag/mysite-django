@@ -1,7 +1,6 @@
 from django.urls import path
-from . import views
-
+from .views import TagDetailView
 
 urlpatterns = [
-    path('<slug:tag>/', views.tag)
+    path('<slug:slug>/', TagDetailView.as_view()),
 ]

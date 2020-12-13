@@ -1,52 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, DetailView
 from .models import Tag, Category, Post
 
 
-def category(request, category):
-    category_query = Category.objects.filter(slug=category)
-    category_qs = []
-    posts = []
-    if category_query:
-        category_qs = category_query[0]
-        posts = Post.objects.filter(
-            category_post__slug=category).order_by('id')
-    return render(request, 'category.html', {
-        'posts': posts,
-        'category': category_qs
-    })
+class CategoryListView(ListView):
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, slug=self.kwargs['category'])
+        return Post.objects.filter(category_post=self.category)
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
 
 
-def post(request, category, post):
-    tags_qs = ''
-    post_qs = []
-    category_qs = []
-
-    category_query = Category.objects.filter(slug=category)
-    if category_query:
-        category_qs = category_query[0]
-
-    post_query = Post.objects.filter(slug=post)
-    if post_query:
-        tags_qs = post_query[0].tags.all()
-        post_qs = post_query[0]
-
-    return render(request, 'post.html', {
-        'post': post_qs,
-        'category': category_qs,
-        'tags': tags_qs
-    })
+class PostDetailView(DetailView):
+    model = Post
 
 
-def tag(request, tag):
-    tag_name = ''
-    posts = []
-    tag_query = Tag.objects.filter(slug=tag)
-
-    if tag_query:
-        tag_name = tag_query[0].tag_name
-        posts = tag_query[0].post_set.all()
-
-    return render(request, 'tag.html', {
-        'posts': posts,
-        'tag_name': tag_name
-    })
+class TagDetailView(DetailView):
+    model = Tag

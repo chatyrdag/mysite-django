@@ -1,55 +1,50 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import GiaTask
 
 
-def gia(request, exam, task=13, offset=1):
+class ShowSolution(DetailView):
+    model = GiaTask
+    template_name = 'gia/showsolution.html'
+    context_object_name = 'task'
+    exam_dict = {1: 'ege', 2: 'oge'}
 
-    if offset < 1:
-        offset = 1
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.task_range = range(13, 20)
 
-    if exam == 'oge' and task == 13:
-        task = 19
-
-    if exam == 'ege':
-        exam_num = 1
-        task_range = range(13, 20)
-    else:
-        exam_num = 2
-        task_range = range(19, 26)
-
-    total_tasks = GiaTask.objects.filter(
-        exam=exam_num, task_number=task).count()
-    pages_count = total_tasks // 10 + 1
-    task_query = GiaTask.objects.filter(exam=exam_num, task_number=task).order_by('id')[
-        (offset - 1) * 10:offset * 10 - 1]
-    return render(request, 'gia.html', {
-        'tasks': task_query,
-        'task_number': task,
-        'exam': exam,
-        'task_range': task_range,
-        'total_tasks': total_tasks,
-        'pages_count': pages_count,
-        'offset': offset,
-        'offsetm1': offset - 1,
-        'offsetp1': offset + 1,
-        'pages_range': range(1, pages_count + 1)
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['exam'] = self.exam_dict[context['task'].exam]
+        if context['exam'] == 'oge':
+            self.task_range = range(19, 26)
+        context['task_range'] = self.task_range
+        return context
 
 
-def show(request, task):
+class GIAList(ListView):
+    template_name = 'gia/gia.html'
+    context_object_name = 'gia_list'
+    exam_dict = {'ege': 1, 'oge': 2}
+    paginate_by = 10
 
-    task_query = GiaTask.objects.filter(slug=task)[0]
-    exam_num = task_query.exam
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.task_number = 13
+        self.task_range = range(13, 20)
 
-    if exam_num == 1:
-        exam = 'ege'
-        task_range = range(13, 20)
-    elif exam_num == 2:
-        exam = 'oge'
-        task_range = range(19, 26)
+    def get_queryset(self):
+        if self.kwargs.get('task'):
+            self.task_number = self.kwargs['task']
+        elif self.kwargs['exam'] == 'oge':
+            self.task_number = 19
+        return GiaTask.objects.filter(exam=self.exam_dict[self.kwargs['exam']],
+                                      task_number=self.task_number).order_by('id')
 
-    return render(request, 'showsolution.html', {
-        'task': task_query,
-        'exam': exam,
-        'task_range': task_range
-    })
+    def get_context_data(self, **kwargs):
+        context = super(GIAList, self).get_context_data(**kwargs)
+        context['exam'] = self.kwargs['exam']
+        if self.kwargs['exam'] == 'oge':
+            self.task_range = range(19, 26)
+        context['task_range'] = self.task_range
+        context['task_number'] = self.task_number
+        return context

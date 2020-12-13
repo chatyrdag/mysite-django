@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block title %}
-    {% if tag_name %}
-        {{tag_name}}
+    {% if tag %}
+        {{tag.tag_name}}
     {% else %}
         Ошибка
     {% endif %}
@@ -10,15 +10,15 @@
 
 {% block content %}
 	<div class="container">
-		{% if tag_name and posts %}
+		{% if tag %}
 		    <div class="row">
 			    <div class="col tag-post">
-				    <h4>Материалы с тегом <em>{{tag_name}}</em></h4>
+				    <h4>Материалы с тегом <em>{{tag.tag_name}}</em></h4>
 			    </div>
 		    </div>
 		    <div class="row">
 			    <div class="col">
-				    {% for post in posts %}
+				    {% for post in tag.post_set.all %}
 					    <h5 class="post-category"><a href="/{{post.category_post.slug}}/">{{post.category_post.category_name}}</a></h5>
     				    <h3 class="post-title"><a href="/{{post.category_post.slug}}/{{post.slug}}/">{{post.title | safe}}</a></h3>
     				    <div class="post-add">

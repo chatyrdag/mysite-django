@@ -1,10 +1,9 @@
 from django.urls import path
-from . import views
+from .views import GIAList, ShowSolution
 
 
 urlpatterns = [
-    path('show/<slug:task>/', views.show),
-    path('<str:exam>/', views.gia),
-    path('<str:exam>/<int:task>/', views.gia),
-    path('<str:exam>/<int:task>/<int:offset>/', views.gia)
+    path('show/<slug:slug>/', ShowSolution.as_view()),
+    path('<str:exam>/', GIAList.as_view()),
+    path('<str:exam>/<int:task>/', GIAList.as_view())
 ]

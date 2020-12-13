@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
 
 {% block title %}{{task.title}}{% endblock %}
 
@@ -102,7 +102,7 @@
 					document.getElementById('go-previous')
             			.addEventListener('click', (e) => {
             				if(myState.pdf == null
-               					|| myState.currentPage == 1) return;
+               					|| myState.currentPage === 1) return;
             
             				myState.currentPage -= 1;
             				render();
