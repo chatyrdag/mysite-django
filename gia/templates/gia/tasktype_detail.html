@@ -39,7 +39,7 @@
                         {% endif %}
                     </h3>
                     <div class="post-fulltext">{{ task.task_text | safe }}</div>
-                    {% if task.file_with_solition %}
+                    {% if task.file_with_solition or task.solution %}
                         <p><a href="{{ task.get_absolute_url }}">Показать решение...</a></p>
                     {% endif %}
                     <hr/>
