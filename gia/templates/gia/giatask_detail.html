@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{task.title}}{% endblock %}
+{% block title %}{{ giatask.task_type.exam }}. {{ giatask }}{% endblock %}
 
 {% block content %}
 	<div class="container">
@@ -26,7 +26,7 @@
 		</div>
 		<div class="row">
 			<div class="col single-post">
-				<h3 class="post-title">{{giatask.title}}</h3>
+				<h3 class="post-title">{{giatask}}</h3>
 				<div class="post-fulltext">{{giatask.task_text | safe}}</div>
                 {% if giatask.solution %}
                     <div class="post-fulltext mt-4">
