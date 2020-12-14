@@ -6,10 +6,10 @@
 	<div class="container">
 		<div class="col single-post">
                 <h3 class="post-title">
-                    {{ giatask }}
+                    {{ giatask.task_type.exam }}
                 </h3>
         </div>
-		<div class="row">
+		<div class="row mt-4">
 			<div class="col">
 				<ul class="nav nav-tabs">
 						{% for n in giatask.task_type.exam.tasktype_set.all %}
@@ -29,8 +29,10 @@
 				<h3 class="post-title">{{giatask.title}}</h3>
 				<div class="post-fulltext">{{giatask.task_text | safe}}</div>
                 {% if giatask.solution %}
-                    <h6 class="mt-4">Решение:</h6>
-                    <div class="post-fulltext">{{giatask.solution | safe}}</div>
+                    <div class="post-fulltext mt-4">
+                        <p><strong>Решение:</strong></p>
+                        {{giatask.solution | safe}}
+                    </div>
                 {% endif %}
 			</div>
 		</div>
