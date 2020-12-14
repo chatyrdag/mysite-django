@@ -30,7 +30,7 @@
 
                 {% for task in page_obj.object_list %}
                     <h3 class="post-title">
-                        {% if task.file_with_solition %}
+                        {% if task.file_with_solition or task.solution %}
                             <a href="{{ task.get_absolute_url }}">
                         {% endif %}
                         {{ task.title }}
