@@ -3,115 +3,117 @@
 {% block title %}{{ giatask.task_type.exam }}. {{ giatask }}{% endblock %}
 
 {% block content %}
-	<div class="container">
-		<div class="col single-post">
-                <h3 class="post-title">
-                    {{ giatask.task_type.exam }}
-                </h3>
+    <div class="container">
+        <div class="col single-post">
+            <h3 class="post-title">
+                {{ giatask.task_type.exam }}
+            </h3>
         </div>
-		<div class="row mt-4">
-			<div class="col">
-				<ul class="nav nav-tabs">
-						{% for n in giatask.task_type.exam.tasktype_set.all %}
-				    	    <li class="nav-item">
-				        	 	<a href="{{ n.get_absolute_url }}" class="nav-link
+        <div class="row mt-4">
+            <div class="col">
+                <ul class="nav nav-tabs">
+                    {% for n in giatask.task_type.exam.tasktype_set.all %}
+                        <li class="nav-item">
+                            <a href="{{ n.get_absolute_url }}" class="nav-link
                             	    {% if giatask.task_type.task_number == n.task_number %}
 				           				active
 				           			{% endif %}
-				         		">{{n.task_number}}</a>
-					    	</li>
-						{% endfor %}
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col single-post">
-				<h3 class="post-title">{{giatask}}</h3>
-				<div class="post-fulltext">{{giatask.task_text | safe}}</div>
+				         		">{{ n.task_number }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col single-post">
+                <h3 class="post-title">{{ giatask }}</h3>
+                <div class="post-fulltext">{{ giatask.task_text | safe }}</div>
                 {% if giatask.solution %}
                     <div class="post-fulltext mt-4">
                         <p><strong>Решение:</strong></p>
-                        {{giatask.solution | safe}}
+                        {{ giatask.solution | safe }}
                     </div>
                 {% endif %}
-			</div>
-		</div>
-		<div class="row mt-4">
-			<div class="col d-flex justify-content-center" >
-				<div id="alexmath-pdf-viewer">
-        			<div id="navigation-icons">
-        				<button id="go-next" class="pdf-nav-button"><i 
-        					class="far fa-caret-square-right pdf-nav-button-icon" 
-        				></i></button>
-        				<button id="go-previous" class="pdf-nav-button"><i 
-        					class="far fa-caret-square-left pdf-nav-button-icon"
-        				></i></button>
-        				<span class="pdf-nav-text">Страница <span id="current-page-number">1</span> 
+            </div>
+        </div>
+    {% if giatask.file_with_solition %}
+        <div class="row mt-4">
+            <div class="col d-flex justify-content-center">
+                <div id="alexmath-pdf-viewer">
+                    <div id="navigation-icons">
+                        <button id="go-next" class="pdf-nav-button"><i
+                                class="far fa-caret-square-right pdf-nav-button-icon"
+                        ></i></button>
+                        <button id="go-previous" class="pdf-nav-button"><i
+                                class="far fa-caret-square-left pdf-nav-button-icon"
+                        ></i></button>
+                        <span class="pdf-nav-text">Страница <span id="current-page-number">1</span>
         					из <span id="total-pages"></span></span>
-     				</div>
-        			<div id="canvas_container" >
-        				<canvas id="pdf_renderer"></canvas>
-     				</div>
-  				</div>
+                    </div>
+                    <div id="canvas_container">
+                        <canvas id="pdf_renderer"></canvas>
+                    </div>
+                </div>
 
-  				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
-  				<script>
-      				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
-      				let myState = {
-          				pdf: null,
-          				currentPage: 1,
-          				zoom: 1.2
-      				}
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+                    <script>
+                        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
+                        let myState = {
+                            pdf: null,
+                            currentPage: 1,
+                            zoom: 1.2
+                        }
 
-      				pdfjsLib.getDocument('/static/pdf/{{giatask.task_type.slug}}/{{giatask.file_with_solition}}.pdf').promise.then((pdf) => {
-          				myState.pdf = pdf;
+                        pdfjsLib.getDocument('/static/pdf/{{giatask.task_type.slug}}/{{giatask.file_with_solition}}.pdf').promise.then((pdf) => {
+                            myState.pdf = pdf;
 
-          				render();
-      				});
-              
-          
-      
-      				function render() {
-          				myState.pdf.getPage(myState.currentPage).then((page) => {
-              				let canvas = document.getElementById('pdf_renderer');
-              				let ctx = canvas.getContext('2d');
-              				let viewport = page.getViewport({scale: myState.zoom});
-              
-              				canvas.width = viewport.width;
-              				canvas.height = viewport.height;
+                            render();
+                        });
 
-              				document.querySelector('#current-page-number').innerHTML = myState.currentPage;
-              				document.querySelector('#total-pages').innerHTML = myState.pdf._pdfInfo.numPages;
-              
-              				page.render({
-                  				canvasContext: ctx,
-                  				viewport: viewport
-              				});
-          				});
-      				}
 
-    				document.getElementById('go-next')
-       					.addEventListener('click', (e) => {
-           					if(myState.pdf == null 
-		          				|| myState.currentPage >= myState.pdf._pdfInfo.numPages)
-              				return;
-        
-           					myState.currentPage += 1;
-           					render();
-       				});
+                        function render() {
+                            myState.pdf.getPage(myState.currentPage).then((page) => {
+                                let canvas = document.getElementById('pdf_renderer');
+                                let ctx = canvas.getContext('2d');
+                                let viewport = page.getViewport({scale: myState.zoom});
 
-   
-					document.getElementById('go-previous')
-            			.addEventListener('click', (e) => {
-            				if(myState.pdf == null
-               					|| myState.currentPage === 1) return;
-            
-            				myState.currentPage -= 1;
-            				render();
-        			});
+                                canvas.width = viewport.width;
+                                canvas.height = viewport.height;
 
-  				</script>
-			</div>
-		</div>
-	</div>
+                                document.querySelector('#current-page-number').innerHTML = myState.currentPage;
+                                document.querySelector('#total-pages').innerHTML = myState.pdf._pdfInfo.numPages;
+
+                                page.render({
+                                    canvasContext: ctx,
+                                    viewport: viewport
+                                });
+                            });
+                        }
+
+                        document.getElementById('go-next')
+                            .addEventListener('click', (e) => {
+                                if (myState.pdf == null
+                                    || myState.currentPage >= myState.pdf._pdfInfo.numPages)
+                                    return;
+
+                                myState.currentPage += 1;
+                                render();
+                            });
+
+
+                        document.getElementById('go-previous')
+                            .addEventListener('click', (e) => {
+                                if (myState.pdf == null
+                                    || myState.currentPage === 1) return;
+
+                                myState.currentPage -= 1;
+                                render();
+                            });
+
+                    </script>
+
+            </div>
+        </div>
+    {% endif %}
+    </div>
 {% endblock %}
