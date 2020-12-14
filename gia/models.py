@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from .utils import from_cyrillic_to_eng
 
 
@@ -44,6 +45,9 @@ class TaskType(models.Model):
             self.slug = from_cyrillic_to_eng(str(self.exam) + str(self.task_number))
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('tasktype-detail', args=[str(self.slug)])
+
 
 class GiaTask(models.Model):
 
@@ -79,3 +83,6 @@ class GiaTask(models.Model):
         if not self.slug:
             self.slug = from_cyrillic_to_eng(str(self.title))
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('task-detail', args=[str(self.slug)])

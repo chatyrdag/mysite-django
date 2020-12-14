@@ -1,50 +1,35 @@
-from django.views.generic import ListView, DetailView
-from .models import GiaTask
+from django.views.generic import DetailView
+from django.views.generic.base import RedirectView
+from django.core import paginator
+from .models import GiaTask, TaskType
 
 
-class ShowSolution(DetailView):
+class GiaTaskDetailView(DetailView):
     model = GiaTask
-    template_name = 'gia/showsolution.html'
-    context_object_name = 'task'
-    exam_dict = {1: 'ege', 2: 'oge'}
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.task_range = range(13, 20)
+
+class TaskTypeDetailView(DetailView):
+    model = TaskType
+    task_paginate_by = 5
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['exam'] = self.exam_dict[context['task'].exam]
-        if context['exam'] == 'oge':
-            self.task_range = range(19, 26)
-        context['task_range'] = self.task_range
+        context = super(TaskTypeDetailView, self).get_context_data(**kwargs)
+        tasks = GiaTask.objects.filter(task_type=context['tasktype'].id).order_by('id')
+        task_paginator = paginator.Paginator(tasks, self.task_paginate_by)
+        page = self.request.GET.get('page')
+        try:
+            page_obj = task_paginator.page(page)
+        except (paginator.PageNotAnInteger, paginator.EmptyPage):
+            page_obj = task_paginator.page(1)
+        context['page_obj'] = page_obj
+        if task_paginator.count > self.task_paginate_by:
+            context['is_paginated'] = True
         return context
 
 
-class GIAList(ListView):
-    template_name = 'gia/gia.html'
-    context_object_name = 'gia_list'
-    exam_dict = {'ege': 1, 'oge': 2}
-    paginate_by = 10
+class RedirectToEGEMath(RedirectView):
+    url = '/gia/egem13/'
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.task_number = 13
-        self.task_range = range(13, 20)
 
-    def get_queryset(self):
-        if self.kwargs.get('task'):
-            self.task_number = self.kwargs['task']
-        elif self.kwargs['exam'] == 'oge':
-            self.task_number = 19
-        return GiaTask.objects.filter(exam=self.exam_dict[self.kwargs['exam']],
-                                      task_number=self.task_number).order_by('id')
-
-    def get_context_data(self, **kwargs):
-        context = super(GIAList, self).get_context_data(**kwargs)
-        context['exam'] = self.kwargs['exam']
-        if self.kwargs['exam'] == 'oge':
-            self.task_range = range(19, 26)
-        context['task_range'] = self.task_range
-        context['task_number'] = self.task_number
-        return context
+class RedirectToOGEMath(RedirectView):
+    url = '/gia/ogem20/'

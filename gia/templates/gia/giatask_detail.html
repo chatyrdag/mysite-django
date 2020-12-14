@@ -6,23 +6,19 @@
 	<div class="container">
 		<div class="col single-post">
                 <h3 class="post-title">
-                    {% if exam == 'oge' %}
-                        ОГЭ
-                    {% elif exam == 'ege' %}
-                        ЕГЭ
-                    {% endif %}      
+                    {{ giatask }}
                 </h3>
         </div>
 		<div class="row">
 			<div class="col">
 				<ul class="nav nav-tabs">
-						{% for n in task_range %}
+						{% for n in giatask.task_type.exam.tasktype_set.all %}
 				    	    <li class="nav-item">
-				        	 	<a href="/gia/{{exam}}/{{n}}/" class="nav-link
-                            	    {% if task.task_number == n %}
+				        	 	<a href="{{ n.get_absolute_url }}" class="nav-link
+                            	    {% if giatask.task_type.task_number == n.task_number %}
 				           				active
 				           			{% endif %}
-				         		">{{n}}</a>
+				         		">{{n.task_number}}</a>
 					    	</li>
 						{% endfor %}
 				</ul>
@@ -30,11 +26,15 @@
 		</div>
 		<div class="row">
 			<div class="col single-post">
-				<h3 class="post-title">{{task.title}}</h3>
-				<div class="post-fulltext">{{task.task_text | safe}}</div>
+				<h3 class="post-title">{{giatask.title}}</h3>
+				<div class="post-fulltext">{{giatask.task_text | safe}}</div>
+                {% if giatask.solution %}
+                    <h6 class="mt-4">Решение:</h6>
+                    <div class="post-fulltext">{{giatask.solution | safe}}</div>
+                {% endif %}
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mt-4">
 			<div class="col d-flex justify-content-center" >
 				<div id="alexmath-pdf-viewer">
         			<div id="navigation-icons">
@@ -60,8 +60,8 @@
           				currentPage: 1,
           				zoom: 1.2
       				}
-      
-      				pdfjsLib.getDocument('/static/pdf/{{exam}}/{{task.file_with_solition}}.pdf').promise.then((pdf) => {
+
+      				pdfjsLib.getDocument('/static/pdf/{{giatask.task_type.slug}}/{{giatask.file_with_solition}}.pdf').promise.then((pdf) => {
           				myState.pdf = pdf;
 
           				render();

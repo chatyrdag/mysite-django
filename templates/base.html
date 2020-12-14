@@ -41,8 +41,8 @@
                            role="button" aria-haspopup="true"
                            aria-expanded="false">ГИА</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/gia/ege/">Математика. ЕГЭ</a>
-                            <a class="dropdown-item" href="/gia/oge/">Математика. ОГЭ</a>
+                            <a class="dropdown-item" href="{% url 'ege-math' %}">Математика. ЕГЭ</a>
+                            <a class="dropdown-item" href="{% url 'oge-math' %}">Математика. ОГЭ</a>
                             <a class="dropdown-item" href="#">Информатика. ЕГЭ</a>
                         </div>
                     </li>
@@ -109,7 +109,7 @@
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
-                        {% for n in paginator.page_range %}
+                        {% for n in page_obj.paginator.page_range %}
                             <li class="page-item
                                 {% if  page_obj.number == n %}
                                     disabled
