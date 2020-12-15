@@ -34,7 +34,7 @@
                             <a href="{{ task.get_absolute_url }}">
                         {% endif %}
                         {{ task.title }}
-                        {% if task.file_with_solition %}
+                        {% if task.file_with_solition or task.solution %}
                             </a>
                         {% endif %}
                     </h3>
