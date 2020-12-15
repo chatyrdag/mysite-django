@@ -2,6 +2,12 @@
 
 {% block title %}{{ giatask.task_type.exam }}. {{ giatask }}{% endblock %}
 
+{% block scripts %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="col single-post">

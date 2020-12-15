@@ -15,6 +15,9 @@
     </script>
     <script src="https://kit.fontawesome.com/01c568b262.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    {% block scripts %}
+
+    {% endblock %}
 
     <title>{% block title %}Домашняя страница{% endblock %}</title>
 
@@ -43,7 +46,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{% url 'ege-math' %}">Математика. ЕГЭ</a>
                             <a class="dropdown-item" href="{% url 'oge-math' %}">Математика. ОГЭ</a>
-                            <a class="dropdown-item" href="#">Информатика. ЕГЭ</a>
+                            <a class="dropdown-item" href="{% url 'oge-inf' %}">Информатика. ОГЭ</a>
                         </div>
                     </li>
                     <li class="nav-item">
