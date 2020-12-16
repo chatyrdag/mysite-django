@@ -42,7 +42,7 @@
                 {% endif %}
             </div>
         </div>
-    {% if giatask.file_with_solition %}
+    {% if giatask.file_with_solution %}
         <div class="row mt-4">
             <div class="col d-flex justify-content-center">
                 <div id="alexmath-pdf-viewer">
@@ -70,7 +70,7 @@
                             zoom: 1.2
                         }
 
-                        pdfjsLib.getDocument('/static/pdf/{{giatask.task_type.slug}}/{{giatask.file_with_solition}}.pdf').promise.then((pdf) => {
+                        pdfjsLib.getDocument('/static/pdf/{{giatask.task_type.slug}}/{{giatask.file_with_solution}}.pdf').promise.then((pdf) => {
                             myState.pdf = pdf;
 
                             render();

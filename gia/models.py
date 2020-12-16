@@ -51,22 +51,14 @@ class TaskType(models.Model):
 
 class GiaTask(models.Model):
 
-    class ExamType(models.IntegerChoices):
-        EGE = 1
-        OGE = 2
-
     title = models.CharField(max_length=200, null=False,
                              verbose_name='Название задания')
     slug = models.CharField(max_length=250, blank=True, unique=True)
     task_text = models.TextField(null=False, verbose_name='Текст задания')
-    exam = models.IntegerField(
-        choices=ExamType.choices, default=ExamType.EGE, verbose_name='Тип экзамена')
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE,
                                   verbose_name='Тип задания')
-    task_number = models.SmallIntegerField(
-        verbose_name='Номер задания', null=False)
     solution = models.TextField(null=True, blank=True, verbose_name='Решение')
-    file_with_solition = models.CharField(
+    file_with_solution = models.CharField(
         max_length=40, null=True, blank=True, verbose_name='Файл с решением')
     comments = models.TextField(
         null=True, blank=True, verbose_name='Комментарии')
