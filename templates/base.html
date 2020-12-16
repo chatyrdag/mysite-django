@@ -6,14 +6,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-          crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link
+            href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.js"
+    ></script>
     <script type="text/javascript" id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
-    <script src="https://kit.fontawesome.com/01c568b262.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     {% block scripts %}
 
@@ -24,12 +39,12 @@
 </head>
 
 <body>
-
-<header>
-    <div class="container">
+<div class="container">
+    <header>
         <nav class="navbar navbar-expand-md navbar-ligth">
 
-            <a class="navbar-brand" href="/"><span class="alex-navbar-black">Alex</span><span class="alex-navbar-blue">Math</span></a>
+            <a class="navbar-brand ml-3" href="/"><span class="alex-navbar-black">Alex</span><span
+                    class="alex-navbar-blue">Math</span></a>
             <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -74,11 +89,10 @@
                 </ul>
             </div>
         </nav>
-    </div>
-</header>
+    </header>
 
-{% block content %}
-    <div class="container">
+    {% block content %}
+
 
         <h5><a href="/ktp/">Календарно-тематические планы:</a></h5>
 
@@ -93,61 +107,57 @@
             <li><a href="/ktp/11/2/">Геометрия. 11 класс</a></li>
         </ul>
 
-    </div>
-{% endblock %}
 
-{% block pagination %}
-    {% if is_paginated %}
-        <div class="row">
-            <div class="col single-post">
-                <nav aria-label="Task navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item
+    {% endblock %}
+
+    {% block pagination %}
+        {% if is_paginated %}
+            <div class="row">
+                <div class="col single-post">
+                    <nav aria-label="Task navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item
                                 {% if not page_obj.has_previous %}
                                     disabled
                                 {% endif %}
 							">
-                            <a href="{{ request.path }}?page=1" class="page-link" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        {% for n in page_obj.paginator.page_range %}
-                            <li class="page-item
-                                {% if  page_obj.number == n %}
-                                    disabled
-                                {% endif %}
-                                "><a href="{{ request.path }}?page={{ n }}" class="page-link">{{ n }}
-                                {% if page_obj.number == n %}
-                                    <span class="sr-only">(current)</span>
-                                {% endif %}
-                            </a>
+                                <a href="{{ request.path }}?page=1" class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
                             </li>
-                        {% endfor %}
-                        <li class="page-item
+                            {% for n in page_obj.paginator.page_range %}
+                                <li class="page-item
+                                {% if  page_obj.number == n %}
+                                    active">
+                                    <span class="page-link">
+                                    {{ n }}
+                                        <span class="visually-hidden">(current)</span>
+                                    </span>
+                                {% else %}
+                                    "><a href="{{ request.path }}?page={{ n }}" class="page-link">{{ n }}</a>
+                                {% endif %}
+                                </li>
+                            {% endfor %}
+                            <li class="page-item
                                 {% if not page_obj.has_next %}
                                     disabled
                                 {% endif %}
 							">
-                            <a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}" class="page-link"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                                <a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}" class="page-link"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-        </div>
-    {% endif %}
-{% endblock %}
+        {% endif %}
+    {% endblock %}
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+</div>
 
 </body>
 </html>

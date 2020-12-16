@@ -3,49 +3,50 @@
 {% block title %}{{ tasktype }}{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="row">
         <div class="col single-post">
             <h3 class="post-title">{{ tasktype.exam }}</h3>
             <h4>Задания для подготовки</h4>
             <p> Задачи разных лет из реальных экзаменов, демо-вариантов, сборников задач и других источников</p>
         </div>
-        <div class="row">
-            <div class="col">
-                <ul class="nav nav-tabs">
-                    {% for n in tasktype.exam.tasktype_set.all %}
-                        <li class="nav-item">
-                            <a href="{{ n.get_absolute_url }}" class="nav-link
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs">
+                {% for n in tasktype.exam.tasktype_set.all %}
+                    <li class="nav-item alex-navbar-tasks">
+                        <a href="{{ n.get_absolute_url }}" class="nav-link
                             	    {% if tasktype.task_number == n.task_number %}
 				           				active
 				           			{% endif %}
 				         		">{{ n.task_number }}</a>
-                        </li>
-                    {% endfor %}
-
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col single-post">
-
-                {% for task in page_obj.object_list %}
-                    <h3 class="post-title">
-                        {% if task.file_with_solution or task.solution %}
-                            <a href="{{ task.get_absolute_url }}">
-                        {% endif %}
-                        {{ task.title }}
-                        {% if task.file_with_solution or task.solution %}
-                            </a>
-                        {% endif %}
-                    </h3>
-                    <div class="post-fulltext">{{ task.task_text | safe }}</div>
-                    {% if task.file_with_solution or task.solution %}
-                        <p><a href="{{ task.get_absolute_url }}">Показать решение...</a></p>
-                    {% endif %}
-                    <hr/>
+                    </li>
                 {% endfor %}
 
-            </div>
+            </ul>
         </div>
     </div>
+    <div class="row">
+        <div class="col single-post">
+
+            {% for task in page_obj.object_list %}
+                <h3 class="post-title">
+                    {% if task.file_with_solution or task.solution %}
+                        <a href="{{ task.get_absolute_url }}">
+                    {% endif %}
+                    {{ task.title }}
+                    {% if task.file_with_solution or task.solution %}
+                        </a>
+                    {% endif %}
+                </h3>
+                <div class="post-fulltext">{{ task.task_text | safe }}</div>
+                {% if task.file_with_solution or task.solution %}
+                    <p><a href="{{ task.get_absolute_url }}">Показать решение...</a></p>
+                {% endif %}
+                <hr/>
+            {% endfor %}
+
+        </div>
+    </div>
+
 {% endblock %}
