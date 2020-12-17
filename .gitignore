@@ -9,3 +9,5 @@ posts/__pycache__/*
 gia/migrations/__pycache__/*
 __pycache__/*
 gia/__pycache__/*
+blog/__pycache__/*
+blog/migrations/__pycache__/*
