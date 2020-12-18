@@ -58,6 +58,7 @@ class PostBlog(models.Model):
                                  verbose_name='Категория')
     tags = models.ManyToManyField(TagBlog, verbose_name='Тэги')
     created_at = models.DateTimeField(auto_now_add=True)
+    hits = models.IntegerField(verbose_name='Просмотры', default=0)
 
     class Meta:
         verbose_name = 'Пост'
