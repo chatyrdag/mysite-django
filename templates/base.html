@@ -85,7 +85,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://blog.alex-math.ru/blog">Блог</a>
+                        <a class="nav-link" href="{% url 'blog-list' %}">Блог</a>
                     </li>
                 </ul>
             </div>
@@ -133,6 +133,9 @@
                                 </a>
                             </li>
                             {% for n in page_obj.paginator.page_range %}
+                                {% with page_obj.number|add:'-3' as left_border  %}
+                                {% with page_obj.number|add:'3' as right_border  %}
+                                {% if n < right_border and left_border < n %}
                                 <li class="page-item
                                 {% if  page_obj.number == n %}
                                     active">
@@ -144,6 +147,9 @@
                                     "><a href="{{ request.path }}?page={{ n }}" class="page-link">{{ n }}</a>
                                 {% endif %}
                                 </li>
+                                {% endif %}
+                                {% endwith %}
+                                {% endwith %}
                             {% endfor %}
                             <li class="page-item
                                 {% if not page_obj.has_next %}

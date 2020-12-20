@@ -25,6 +25,7 @@ urlpatterns = [
     path('rp/', views.rp),
     path('admin/', admin.site.urls),
     path('tag/', include('posts.turls')),
+    path('blog/', include('blog.urls')),
     path('<slug:category>/', include('posts.urls')),
     path('', views.main),
 ]

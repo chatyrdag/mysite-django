@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 from .utils import from_cyrillic_to_eng
 
 
@@ -24,6 +26,9 @@ class CategoryBlog(models.Model):
             self.slug = str(from_cyrillic_to_eng(self.name))
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('categoryblog-detail', args=[str(self.slug)])
+
 
 class TagBlog(models.Model):
     name = models.CharField(max_length=80, null=False, blank=False,
@@ -45,6 +50,9 @@ class TagBlog(models.Model):
             self.slug = str(from_cyrillic_to_eng(self.name))
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('tagblog-detail', args=[str(self.slug)])
+
 
 class PostBlog(models.Model):
     title = models.CharField(max_length=160, null=False, blank=False,
@@ -63,6 +71,7 @@ class PostBlog(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ['-created_at', ]
 
     def __str__(self):
         return self.title
@@ -71,3 +80,6 @@ class PostBlog(models.Model):
         if not self.slug:
             self.slug = str(from_cyrillic_to_eng(self.title))
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('postblog-detail', args=[str(self.slug)])
