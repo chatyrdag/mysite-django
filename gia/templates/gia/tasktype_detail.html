@@ -4,14 +4,15 @@
 
 {% block content %}
     <div class="row">
-        <div class="col single-post">
-            <h3 class="post-title">{{ tasktype.exam }}</h3>
-            <h4>Задания для подготовки</h4>
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10 single-post mt-5">
+            <h2 class="blog-title">{{ tasktype.exam }}</h2>
+            <h6>Задания для подготовки</h6>
             <p> Задачи разных лет из реальных экзаменов, демо-вариантов, сборников задач и других источников</p>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10 mb-4">
             <ul class="nav nav-tabs">
                 {% for n in tasktype.exam.tasktype_set.all %}
                     <li class="nav-item alex-navbar-tasks">
@@ -25,9 +26,9 @@
 
             </ul>
         </div>
-    </div>
-    <div class="row">
-        <div class="col single-post">
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10 single-post">
 
             {% for task in page_obj.object_list %}
                 <h3 class="post-title">
@@ -47,6 +48,7 @@
             {% endfor %}
 
         </div>
+        <div class="col-md-1"></div>
     </div>
 
 {% endblock %}

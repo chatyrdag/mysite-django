@@ -6,6 +6,7 @@ mathapi/migrations/__pycache__/*
 mathapi/functions/__pycache__/*
 ktp/migrations/__pycache__/*
 posts/__pycache__/*
+posts/migrations/__pycache__/*
 gia/migrations/__pycache__/*
 __pycache__/*
 gia/__pycache__/*

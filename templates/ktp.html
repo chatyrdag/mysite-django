@@ -4,57 +4,57 @@
 
 {% block content %}
 
-    <div class="row d-flex justify-content-center mt-5">
-        <div class="col-md-6 text-center">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 col-12 text-center mt-5">
             <h3 class="center">Календарно-тематический план</h3>
         </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-8 text-center">
-            <h4>{{ discipline_name }}. {{ form }} класс</h4>
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-10 col-12 text-center">
+            <h6>{{ discipline_name }}. {{ form }} класс</h6>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-10 col-12 mt2">
             <div class="table-responsive">
                 <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">№ урока</th>
-                    <th scope="col">Планируемая дата</th>
-                    <th scope="col">Дата проведения</th>
-                    <th scope="col">Тема</th>
-                    <th scope="col">Домашнее задание</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {% for lesson in lessons_list %}
-
+                    <thead>
                     <tr>
-                        <th scope="row">{{ lesson.number_of_lesson }}</th>
-                        <td>{{ lesson.plan_date }}</td>
-                        <td>
-                            {% if lesson.fact_date %}
-                                {{ lesson.fact_date }}
-                            {% endif %}
-                        </td>
-                        <td>{{ lesson.theme | safe }}</td>
-                        <td>
-                            {% if lesson.home_task %}
-                                {{ lesson.home_task | safe }}
-                            {% endif %}
-                        </td>
+                        <th scope="col">№ урока</th>
+                        <th scope="col">Планируемая дата</th>
+                        <th scope="col">Дата проведения</th>
+                        <th scope="col">Тема</th>
+                        <th scope="col">Домашнее задание</th>
                     </tr>
+                    </thead>
+                    <tbody>
 
-                {% endfor %}
+                    {% for lesson in lessons_list %}
 
-                </tbody>
-            </table>
+                        <tr>
+                            <th scope="row">{{ lesson.number_of_lesson }}</th>
+                            <td>{{ lesson.plan_date }}</td>
+                            <td>
+                                {% if lesson.fact_date %}
+                                    {{ lesson.fact_date }}
+                                {% endif %}
+                            </td>
+                            <td>{{ lesson.theme | safe }}</td>
+                            <td>
+                                {% if lesson.home_task %}
+                                    {{ lesson.home_task | safe }}
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
             </div>
-
         </div>
+        <div class="col-md-1"></div>
     </div>
 
 {% endblock %}

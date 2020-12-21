@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from .utils import from_cyrillic_to_eng
 
 
@@ -25,6 +26,9 @@ class Tag(models.Model):
             self.slug = from_cyrillic_to_eng(str(self.tag_name))
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('posts-tag-detail', args=[str(self.slug)])
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=80,
@@ -49,6 +53,9 @@ class Category(models.Model):
             self.slug = from_cyrillic_to_eng(self.category_name)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('posts-category-list', args=[str(self.slug)])
+
 
 class Post(models.Model):
     title = models.CharField(max_length=80,
@@ -57,11 +64,12 @@ class Post(models.Model):
     slug = models.CharField(max_length=100, blank=True, unique=True)
     short_description = models.TextField(verbose_name='Краткое описание')
     full_text = models.TextField(verbose_name='Полный текст')
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag, verbose_name='Тэги')
     category_post = models.ForeignKey(Category, on_delete=models.CASCADE,
                                       verbose_name='Категория')
+    hits = models.SmallIntegerField(verbose_name='Просмотры', default=0)
 
     class Meta:
         verbose_name = 'Пост'
@@ -74,3 +82,6 @@ class Post(models.Model):
         if not self.slug:
             self.slug = from_cyrillic_to_eng(str(self.title))
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('posts-post-detail', args=[str(self.category_post.slug), str(self.slug)])

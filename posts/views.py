@@ -20,6 +20,13 @@ class CategoryListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
+    def get_context_data(self, **kwargs):
+        post = self.get_object()
+        context = super().get_context_data(**kwargs)
+        post.hits += 1
+        post.save()
+        return context
+
 
 class TagDetailView(DetailView):
     model = Tag

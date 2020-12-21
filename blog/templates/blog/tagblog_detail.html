@@ -5,8 +5,13 @@
 {% block content %}
     <div class="row">
 
-        <div class="col-12 mt-5"><h2 class="post-title"><a href="{% url 'blog-list' %}">Блог &laquo;Прогулки по Вселенной&raquo;</a></h2></div>
-        <div class="col-12 mt-2"><h4>Материалы с тэгом &laquo;{{ tagblog.name }}&raquo;</h4></div>
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10 mt-5"><h2 class="blog-title"><a href="{% url 'blog-list' %}">Блог &laquo;Прогулки
+            по Вселенной&raquo;</a></h2></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10"><h6>Материалы с тэгом &laquo;{{ tagblog.name }}&raquo;</h6></div>
+        <div class="col-md-1"></div>
 
         {% for post in page_obj %}
             <div class="col-md-1"></div>
@@ -17,14 +22,17 @@
                     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                 </h3>
                 <div class="post-add">
-                    <h6 class="post-date" style="margin-top: -5px">Создано: {{ post.created_at|date:'j E Y' }}</h6>
-                    <h6 class="post-date" style="margin-top: -5px">Категория: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></h6>
-                    <h6 class="post-date" style="margin-top: -5px">Просмотры: {{ post.hits }}</h6>
-                    <h6 class="post-tags" style="margin-top: -5px">Тэги:
-                        {% for tag in post.tags.all %}
-                            <span class="span-tags"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></span>
-                        {% endfor %}
-                    </h6>
+                    <dl>
+                        <dd><i class="fas fa-eye"></i> Просмотры: {{ post.hits }}</dd>
+                        <dd><i class="far fa-folder-open"></i> Категория: <a
+                                href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></dd>
+                        <dd><i class="far fa-calendar-alt"></i> Создано: {{ post.created_at|date:'j E Y' }}</dd>
+                        <dd><i class="fas fa-link"></i> Тэги:
+                            {% for tag in post.tags.all %}
+                                <span class="span-tags"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></span>
+                            {% endfor %}
+                        </dd>
+                    </dl>
                 </div>
                 <div class="post-fulltext">{{ post.intro|safe }}</div>
                 <p><a href="{{ post.get_absolute_url }}">Читать дальше...</a></p>

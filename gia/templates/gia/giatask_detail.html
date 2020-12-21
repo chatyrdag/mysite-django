@@ -10,12 +10,11 @@
 
 {% block content %}
 
-    <div class="row mt-5">
-        <div class="col">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10">
 
-            <h3 class="post-title">
-                {{ giatask.task_type.exam }}
-            </h3>
+            <h2 class="blog-title mt-5">{{ giatask.task_type.exam }}</h2>
             <ul class="nav nav-tabs">
                 {% for n in giatask.task_type.exam.tasktype_set.all %}
                     <li class="nav-item alex-navbar-tasks">
@@ -29,9 +28,9 @@
             </ul>
 
         </div>
-    </div>
-    <div class="row">
-        <div class="col single-post">
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-12 col-md-10 single-post">
 
             <h3 class="post-title">{{ giatask }}</h3>
             <div class="post-fulltext">{{ giatask.task_text | safe }}</div>
@@ -43,10 +42,11 @@
             {% endif %}
 
         </div>
-    </div>
-    {% if giatask.file_with_solution %}
-        <div class="row mt-4">
-            <div class="col d-flex justify-content-center">
+        <div class="col-md-1"></div>
+
+        {% if giatask.file_with_solution %}
+
+            <div class="col-12 d-flex justify-content-center">
                 <div id="alexmath-pdf-viewer">
                     <div id="navigation-icons">
                         <button id="go-next" class="pdf-nav-button"><i
@@ -121,7 +121,8 @@
                 </script>
 
             </div>
-        </div>
-    {% endif %}
+
+        {% endif %}
+    </div>
 
 {% endblock %}

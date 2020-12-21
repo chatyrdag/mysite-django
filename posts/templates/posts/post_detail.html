@@ -2,36 +2,45 @@
 
 {% block title %}
     {% if post %}
-        {{post.title}}
+        {{ post.title }}
     {% else %}
         Ошибка
     {% endif %}
 {% endblock %}
 
 {% block content %}
-	<div class="container">
-		<div class="row">
-			{% if post %}
-			    <div class="col single-post">
-				    <h5 class="post-category"><a href="/{{post.category_post.slug}}/">{{post.category_post.category_name}}</a></h5>
-				    <h3>{{post.title}}</h3>
-				    <div class="post-add">
-					    <h6 class="post-date">Дата создания: {{post.created_at}}</h6>
-					    <h6 class="post-tags">Тэги: 
-						    {% for tag in post.tags.all %}
-							    <span class="span-tags"><a href="/tag/{{tag.slug}}/">{{tag.tag_name}}</a></span>
-						    {% endfor %}
-				        </h6>
-				    </div>
-				    <div class="post-description">{{post.short_description | safe}}</div>
-				    <div class="post-fulltext">{{post.full_text | safe}}</div>
-			    </div>
-			{% else %}
-                <div class="col category-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1"></div>
+            {% if post %}
+                <div class="col-12 col-md-10 mt-5 single-post">
+                    <h3>{{ post.title }}</h3>
+                    <div class="post-add">
+                        <dl>
+                            <dd><i class="fas fa-eye"></i> Просмотры: {{ post.hits }}</dd>
+                            <dd><i class="far fa-folder-open"></i> Категория: <a
+                                    href="{{ post.category_post.get_absolute_url }}">{{ post.category_post.category_name }}</a>
+                            </dd>
+                            <dd><i class="far fa-calendar-alt"></i> Создано: {{ post.created_at|date:'j E Y' }}
+                            </dd>
+                            <dd><i class="fas fa-link"></i> Тэги:
+                                {% for tag in post.tags.all %}
+                                    <span class="span-tags"><a
+                                            href="{{ tag.get_absolute_url }}">{{ tag.tag_name }}</a></span>
+                                {% endfor %}
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="post-description">{{ post.short_description | safe }}</div>
+                    <div class="post-fulltext">{{ post.full_text | safe }}</div>
+                </div>
+            {% else %}
+                <div class="col-12 col-md-10 category-post">
                     <h4>Ошибка!</h4>
                     <p>Такой страницы не существует!</p>
                 </div>
             {% endif %}
-		</div>
-	</div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
 {% endblock %}
