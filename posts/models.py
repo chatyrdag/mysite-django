@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 from .utils import from_cyrillic_to_eng
 
 
@@ -62,8 +63,8 @@ class Post(models.Model):
                              verbose_name='Заголовок поста',
                              blank=False, null=False)
     slug = models.CharField(max_length=100, blank=True, unique=True)
-    short_description = models.TextField(verbose_name='Краткое описание')
-    full_text = models.TextField(verbose_name='Полный текст')
+    short_description = RichTextField(verbose_name='Краткое описание')
+    full_text = RichTextField(verbose_name='Полный текст')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag, verbose_name='Тэги')
@@ -74,6 +75,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ['-id', ]
 
     def __str__(self):
         return self.title
