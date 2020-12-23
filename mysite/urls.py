@@ -19,10 +19,10 @@ from . import views
 
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('ktp/', include('ktp.urls')),
     path('gia/', include('gia.urls')),
     path('mathapi/', include('mathapi.urls')),
-    path('rp/', views.rp),
     path('admin/', admin.site.urls),
     path('tag/', include('posts.turls')),
     path('blog/', include('blog.urls')),
