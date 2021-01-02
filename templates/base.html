@@ -199,10 +199,16 @@
 </div>
 <footer>
     <div class="text-center p-3" style="background-color: rgba(0, 0, 10, 0.2)">
-        © 2020.
+        © 2013&mdash;<span id="current-year"></span>.
         <a class="text-dark" href="https://alex-math.ru/">Alexei Petrash</a>.
         Все права защищены.
     </div>
 </footer>
+<script>
+    let myDate = new Date();
+    let year = myDate.getFullYear();
+    let el = document.getElementById('current-year');
+    el.innerText = '' + year;
+</script>
 </body>
 </html>

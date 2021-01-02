@@ -1,3 +1,5 @@
+import re
+
 cyrillic_letters = {
     u'а': u'a',
     u'б': u'b',
@@ -36,6 +38,7 @@ cyrillic_letters = {
 
 
 def from_cyrillic_to_eng(text: str):
+    text = re.sub('[.,:;_?!@#$%^&*()+/\"\']', '', text)
     text = text.replace(' ', '-').lower()
     tmp = ''
     for ch in text:
