@@ -92,8 +92,14 @@
                             <a class="nav-link" href="/administrirovaniye/">Администрирование</a>
                         </li>
                         {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Тренажёры</a>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active"
+                               data-toggle="dropdown" href="#"
+                               role="button" aria-haspopup="true"
+                               aria-expanded="false">Тренажёры</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
+                            </div>
                             </li>
                         {% endif %}
                         <li class="nav-item dropdown">

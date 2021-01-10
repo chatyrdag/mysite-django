@@ -5,5 +5,5 @@ def main(request):
     return render(request, 'base.html')
 
 
-def rp(request):
-    return render(request, 'rp.html')
+def train(request):
+    return render(request, 'train.html')

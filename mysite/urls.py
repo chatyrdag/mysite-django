@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tag/', include('posts.turls')),
     path('blog/', include('blog.urls')),
+    path('train/multtab/', views.train),
     path('<slug:category>/', include('posts.urls')),
     path('', views.main),
 ]
