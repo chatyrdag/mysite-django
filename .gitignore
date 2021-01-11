@@ -13,3 +13,5 @@ __pycache__/*
 gia/__pycache__/*
 blog/__pycache__/*
 blog/migrations/__pycache__/*
+train/__pycache__/*
+train/migrations/__pycache__/*
