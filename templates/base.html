@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="yandex-verification" content="22e430047a2b7c0b" />
+    <meta name="yandex-verification" content="22e430047a2b7c0b"/>
 
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -35,27 +35,30 @@
 
     {% endblock %}
 
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
-            };
-            m[i].l = 1 * new Date();
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    {% block yandex %}
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function (m, e, t, r, i, k, a) {
+                m[i] = m[i] || function () {
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
+                m[i].l = 1 * new Date();
+                k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+            })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(70878115, "init", {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true
-        });
-    </script>
-    <noscript>
-        <div><img src="https://mc.yandex.ru/watch/70878115" style="position:absolute; left:-9999px;" alt=""/></div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
+            ym(70878115, "init", {
+                clickmap: true,
+                trackLinks: true,
+                accurateTrackBounce: true
+            });
+        </script>
+        <noscript>
+            <div><img src="https://mc.yandex.ru/watch/70878115" style="position:absolute; left:-9999px;" alt=""/></div>
+        </noscript>
+        <!-- /Yandex.Metrika counter -->
+
+    {% endblock %}
 
     <title>{% block title %}Домашняя страница{% endblock %}</title>
 
@@ -93,13 +96,13 @@
                         </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active"
-                               data-toggle="dropdown" href="#"
-                               role="button" aria-haspopup="true"
-                               aria-expanded="false">Тренажёры</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
-                            </div>
+                                <a class="nav-link dropdown-toggle active"
+                                   data-toggle="dropdown" href="#"
+                                   role="button" aria-haspopup="true"
+                                   aria-expanded="false">Тренажёры</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
+                                </div>
                             </li>
                         {% endif %}
                         <li class="nav-item dropdown">
