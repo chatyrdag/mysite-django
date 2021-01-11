@@ -25,8 +25,8 @@ class Train(models.Model):
 
 
 class UserPerformTrain(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    train_type = models.ForeignKey(Train, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    train = models.ForeignKey(Train, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
     total_tasks = models.SmallIntegerField()
     level_achieved = models.SmallIntegerField(default=1)

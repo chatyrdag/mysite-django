@@ -3,7 +3,6 @@
 {% block scripts %}
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script async src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -39,13 +38,16 @@
                     <div class="col-12">
                         <p>Задание [[ givenTasks ]] из [[ totalTasks ]]</p>
                         <p>Правильно решённых: [[ correctSolvedTasks ]]</p>
-                        {% comment %}<p>Оценка: <strong>[[ mark ]]</strong></p>{% endcomment %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        Vue.prototype.$user_id = {{ user.id }};
+        Vue.prototype.$train_id =  {{ train_id }};
 
+    </script>
     <script src="/static/js/train/{{ train_type }}.js"></script>
 {% endblock %}
