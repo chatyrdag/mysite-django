@@ -94,7 +94,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/administrirovaniye/">Администрирование</a>
                         </li>
-                        {% if user.is_authenticated %}
+                       {% comment %} {% if user.is_authenticated %}{% endcomment %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle active"
                                    data-toggle="dropdown" href="#"
@@ -104,7 +104,7 @@
                                     <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
                                 </div>
                             </li>
-                        {% endif %}
+                      {% comment %}  {% endif %}{% endcomment %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle active"
                                data-toggle="dropdown" href="#"
