@@ -11,8 +11,8 @@
             <div id="app" class="card text-center mt-5">
                 <div class="row">
                     <div class="col-12">
-                        <h3>Таблица умножения</h3>
-                        <p>Выполните задание</p>
+                        <h3>{{ train.name }}</h3>
+                        <p>{{ train.short_instruction }}</p>
                         <h1 :key="componentKey"
                             id="math-task"
                             class="mt-5 mb-5"
@@ -46,8 +46,8 @@
 
     <script>
         Vue.prototype.$user_id = {{ user.id }};
-        Vue.prototype.$train_id =  {{ train_id }};
+        Vue.prototype.$train_id =  {{ train.id }};
 
     </script>
-    <script src="/static/js/train/{{ train_type }}.js"></script>
+    <script src="/static/js/train/{{ train.train_type }}.js"></script>
 {% endblock %}

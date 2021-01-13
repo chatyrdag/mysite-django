@@ -11,8 +11,8 @@ import datetime
 
 @login_required
 def train(request, train_type):
-    train_id = Train.objects.get(train_type=train_type).id
-    return render(request, 'train.html', {'train_type': train_type, 'train_id': train_id})
+    train_obj = Train.objects.get(train_type=train_type)
+    return render(request, 'train.html', {'train': train_obj})
 
 
 @ensure_csrf_cookie

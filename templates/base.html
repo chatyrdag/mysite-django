@@ -28,6 +28,8 @@
     <script type="text/javascript" id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
     {% load static %}
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -102,6 +104,7 @@
                                    aria-expanded="false">Тренажёры</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
+                                    <a class="dropdown-item" href="/train/groupz/">Сложение целых чисел</a>
                                 </div>
                             </li>
                       {% comment %}  {% endif %}{% endcomment %}
