@@ -35,10 +35,11 @@ cyrillic_letters = {
     u'э': u'e',
     u'ю': u'yu',
     u'я': u'ya',
+    ' ': '-',
 }
 
 
 def from_cyrillic_to_eng(text: str):
-    return ''.join(map(lambda ch: cyrillic_letters.get(ch, ch),
+    return ''.join(map(lambda ch: cyrillic_letters.get(ch.lower(), ch.lower()),
                        filter(lambda ch: ch.isalnum() or ch == ' ' or ch == '-',
                               text)))
