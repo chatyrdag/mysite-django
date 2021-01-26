@@ -93,21 +93,27 @@
                                 <a class="dropdown-item" href="{% url 'oge-inf' %}">Информатика. ОГЭ</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/administrirovaniye/">Администрирование</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active"
+                               data-toggle="dropdown" href="#"
+                               role="button" aria-haspopup="true"
+                               aria-expanded="false">IT</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/administrirovaniye/">Администрирование</a>
+                                <a class="dropdown-item" href="/python/">Python</a>
+                                <a class="dropdown-item" href="/go/">Go</a>
+                            </div>
                         </li>
-                       {% comment %} {% if user.is_authenticated %}{% endcomment %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle active"
-                                   data-toggle="dropdown" href="#"
-                                   role="button" aria-haspopup="true"
-                                   aria-expanded="false">Тренажёры</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
-                                    <a class="dropdown-item" href="/train/groupz/">Сложение целых чисел</a>
-                                </div>
-                            </li>
-                      {% comment %}  {% endif %}{% endcomment %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active"
+                               data-toggle="dropdown" href="#"
+                               role="button" aria-haspopup="true"
+                               aria-expanded="false">Тренажёры</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/train/multtab/">Таблица умножения</a>
+                                <a class="dropdown-item" href="/train/groupz/">Сложение целых чисел</a>
+                            </div>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle active"
                                data-toggle="dropdown" href="#"
