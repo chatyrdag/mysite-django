@@ -37,3 +37,7 @@ class RedirectToOGEMath(RedirectView):
 
 class RedirectToOGEInf(RedirectView):
     url = '/gia/ogei15/'
+
+
+class RedirectToEGEInf(RedirectView):
+    url = '/gia/egei16/'
